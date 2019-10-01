@@ -1,0 +1,58 @@
+---
+title: "Exercises1"
+author: "Yongqi WANG"
+output:
+  pdf_document: default
+#header-includes:
+#  - \usepackage{blkarray} # use blkarray in latex env
+#  - \usepackage{bm} # use blkarray in latex env
+#  - \usepackage{physics} # use blkarray in latex env
+---
+
+```{r setup, include=FALSE, warning=F}
+#knitr::opts_chunk$set(echo = TRUE)
+#source("draw_matrix.R")
+```
+
+\newcommand{\m}[1]{\mathbf{#1}}
+
+## Problem 1
+
+### a)
+
+The model reaches equilibrium points as the $x_{t+1} = f(x_t) = x_t$, let $x^*$ be the equilibrium points of the system.
+
+Solving:
+
+$$
+f(x) = rx(1-x) = x \\
+x = \frac{1-r}{r}
+$$
+
+### b) 
+
+The stability of the points can be checked by the gradient of $|f'(x^*)| = |r - 2rx^*|$.
+
+$r = 0.5$, $x^* = 1, |f'(x^*)| = 0.5 < 1$ and hence \textbf{attractive}.
+
+$r = 1.5$, $x^* = -\frac{1}{3}, |f'(x^*)| = 2.5 > 1$ and hence \textbf{repelling}.
+
+$r = 2.5$, $x^* = -\frac{3}{5}, |f'(x^*)| = 1$ and hence \textbf{neutral}.
+
+### c)
+
+```{r results='hide', message=FALSE, warning=FALSE}
+library(deSolve)
+parms <- c()
+my.atol <- c(1e-06)
+times <- c(0:100)/25
+sdiffeqns <- function(t, s, parms) {
+sd1 <- 3 * s[1] * (s[1] - 1) * (s[1] - 2)
+list(c(sd1))
+}
+initconds <- c(0 - 1e-06) # just below 0
+out0m <- lsoda(initconds, times, sdiffeqns, rtol = 1e-10, atol = my.atol)
+plot(out0m, xlab = "time", ylab = "x", main = "", col = "dodgerblue",
+lty = 1, lwd = 2, ylim = c(-2, 4), xlim = c(0, 4))
+```
+
