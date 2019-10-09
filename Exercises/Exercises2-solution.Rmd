@@ -68,7 +68,7 @@ $$
 
 ### b)
 
-Since $f_0 > 1$ and $0 < q < 1$, the matrix W is non-negative. Besides, the shape of W is $2 \times 2, (I + W)^{n-1} = I + W > 0$, so the matrix W is irreducible. We can apply the Perron–Frobenius theorem. 
+Since $f_0 > 1$ and $0 \leq q \leq 1$, the matrix W is non-negative. Besides, the shape of W is $2 \times 2, (I + W)^{n-1} = I + W > 0$, so the matrix W is irreducible. We can apply the Perron–Frobenius theorem. 
 
 According to this theorem, $\lambda_{max}$ is simple and the components of the associated eigenvector are all (strictly) positive. Therefore, the largest eigenvalue corresponds the non-trivial equilibrium point.
 
