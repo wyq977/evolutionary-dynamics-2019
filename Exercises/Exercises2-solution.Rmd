@@ -70,7 +70,7 @@ $$
 
 Since $f_0 > 1$ and $0 < q < 1$, the matrix W is non-negative. Besides, the shape of W is $2 \times 2, (I + W)^{n-1} = I + W > 0$, so the matrix W is irreducible. We can apply the Perron–Frobenius theorem. 
 
-According to this theorem, $\lambda_{max}$ is simple and the components of the associated eigenvector are all (strictly) positive. Therefore, the largest eigenvalue $\lambda = \frac{q(f_0+1) + \sqrt{q^2(f_0+1)^2  - 4f_0(2q-1)} }{2}$ corresponds the non-trivial equilibrium point.
+According to this theorem, $\lambda_{max}$ is simple and the components of the associated eigenvector are all (strictly) positive. Therefore, the largest eigenvalue corresponds the non-trivial equilibrium point.
 
 ### c)
 
@@ -119,13 +119,17 @@ legend("topleft", legend=c("0", "1"),
 
 ### d)
 
-By b) we know that the equilibrium point for $f_0 = f_1 = 1$ would be 
+For $f_0 = f_1 = 1$，
 
 $$
-\lambda_{max} = \frac{2q + \sqrt{4(q-1)^2} }{2} = 1
+\lambda_1 = \frac{2q + \sqrt{4(q-1)^2} }{2} = 2q-1
 $$
 
-So $\phi = \lambda_{max} = x_0 + x_1 = 1$
+$$
+\lambda_2 = \frac{2q - \sqrt{4(q-1)^2} }{2} = 1
+$$
+
+Since $q \leq 1, \lambda_{max} = \phi = x_0 + x_1 = 1$
 
 Besides, $$
 \begin{bmatrix}
@@ -142,13 +146,17 @@ we get $x_0 = x_1 = 0.5$
 
 ### e)
 
-By b) we know that the equilibrium point for $q \approx 1$ would be 
+For $q \approx 1$,
 
 $$
-\lambda_{max} = \frac{f_0 + 1 + \sqrt{(f_0-1)^2} }{2} = f_0
+\lambda_1  = \frac{f_0 + 1 + \sqrt{(f_0-1)^2} }{2} =f_0
 $$
 
-So $\phi = \lambda_{max} = f_0x_0 + x_1 = f_0$
+$$
+\lambda_2  = \frac{f_0 + 1 - \sqrt{(f_0-1)^2} }{2} =1
+$$
+
+Since $f_0 \gt 1, \lambda_{max} = \phi = f_0x_0 + x_1 = f_0$
 
 Besides, $x_0 + x_1 = 1$
 
