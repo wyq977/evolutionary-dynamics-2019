@@ -22,23 +22,23 @@ header-includes:
 
 ### a)
 
-Since there $20$ unique amino acids, there exist $20^{20}$ unique amino acid sequences for a sequence of $L=20$.
+Since there are $20$ unique amino acids, there exists $20^{20}$ unique amino acid sequences for a sequence of $L=20$.
 
 ### b) 
 
-Codons consist of $3$ DNA sequences is responsible for a single amino acid sequence, the DNA sequence encoding the amino acids sequence is of length of $20 \times 3 = 60$ and has $60^{4}$ uniques sequences.
+Codon consists of $3$ nucleotides, so the DNA sequence encoding the amino acids sequence is of length of $20 \times 3 = 60$ and has $4^{60}$ unique sequences.
 
 ## Problem 2
 
 ### a)
 
-Let $x, y$ be two binary sequences of length $L$, $P(z_i = 1) = P(z_i = 1) = \frac{1}{2}, z \in \{x, y\},i \in \{0,1,\dots, L\}$.
+Let $x, y$ be two binary sequences of length $L$, $P(z_i = 0) = P(z_i = 1) = \frac{1}{2}, z \in \{x, y\},i \in \{0,1,\dots, L\}$.
 
 Let $a, b$ be two DNA sequences of length $L$, $P(c_i = A) = P(c_i = T) = P(c_i = C) = P(c_i = G) = \frac{1}{4}, c \in \{a, b\},i \in \{0,1,\dots, L\}$
 
 **Binary**: $$E(d_H(x, y)) = E(\sum_{i=1}^L 1_{x_i \not = y_i}) = \sum_{i=1}^L E(1_{x_i \not= y_i}) = L \cdot P(x_i \not= y_i) = \frac{L}{2}$$
 
-**Random DNA**: $$E(d_H(a, b)) = E(\sum_{i=1}^L 1_{a_i \not = b_i}) = \sum_{i=1}^L E(1_{x_i \not = y_i}) = L \cdot P(a_i \not= b_i) = \frac{3L}{4} $$
+**Random DNA**: $$E(d_H(a, b)) = E(\sum_{i=1}^L 1_{a_i \not = b_i}) = \sum_{i=1}^L E(1_{a_i \not = b_i}) = L \cdot P(a_i \not= b_i) = \frac{3L}{4} $$
 
 ### b)
 
@@ -63,12 +63,14 @@ $$
 The eigenvalues of the above matrix by solving $det(W-\lambda I) = 0$:
 
 $$
-\lambda_{1,2} = \frac{f_0(q+1) \pm \sqrt{(f_0(q+1))^2 - 4f_0(2q-1)} }{2}
+\lambda_{1,2} = \frac{q(f_0+1) \pm \sqrt{q^2(f_0+1)^2 - 4f_0(2q-1)} }{2}
 $$
 
 ### b)
 
-Perron-Frobenius theorem states that 
+Since $f_0 > 1$ and $0 < q < 1$, the matrix W is non-negative. Besides, the shape of W is $2 \times 2, (I + W)^{n-1} = I + W > 0$, so the matrix W is irreducible. We can apply the Perron–Frobenius theorem. 
+
+According to this theorem, $\lambda_{max}$ is simple and the components of the associated eigenvector are all (strictly) positive. Therefore, the largest eigenvalue $\lambda = \frac{q(f_0+1) + \sqrt{q^2(f_0+1)^2  - 4f_0(2q-1)} }{2}$ corresponds the non-trivial equilibrium point.
 
 ### c)
 
@@ -120,14 +122,41 @@ legend("topleft", legend=c("0", "1"),
 By b) we know that the equilibrium point for $f_0 = f_1 = 1$ would be 
 
 $$
-\lambda = \frac{(q+1) + \sqrt{(q+1)^2 - 4(2q-1)} }{2}
+\lambda_{max} = \frac{2q + \sqrt{4(q-1)^2} }{2} = 1
 $$
+
+So $\phi = \lambda_{max} = x_0 + x_1 = 1$
+
+Besides, $$
+\begin{bmatrix}
+    q & 1-q \\
+    1-q & q \\
+    \end{bmatrix} \times  \begin{bmatrix}
+    x_0 \\
+    x_1 \\
+    \end{bmatrix} = \begin{bmatrix}
+    x_0 \\
+    x_1 \\
+    \end{bmatrix} $$   
+we get $x_0 = x_1 = 0.5$  
 
 ### e)
 
+By b) we know that the equilibrium point for $q \approx 1$ would be 
+
 $$
-\lambda = \frac{2f_0 + \sqrt{4f_0^2 - 4f_0} }{2}
+\lambda_{max} = \frac{f_0 + 1 + \sqrt{(f_0-1)^2} }{2} = f_0
 $$
+
+So $\phi = \lambda_{max} = f_0x_0 + x_1 = f_0$
+
+Besides, $x_0 + x_1 = 1$
+
+We get $x_0 = 1$ and $x_1 = 0$
+
+
+
+
 
 Code is available on github repo:
 (https://github.com/wyq977/evolutionary-dynamics-2019)
