@@ -119,7 +119,7 @@ legend("topleft", legend=c("0", "1"),
 
 ### d)
 
-For $f_0 = f_1 = 1$，
+For $f_0 = f_1 = 1$,
 
 $$
 \lambda_1 = \frac{2q + \sqrt{4(q-1)^2} }{2} = 2q-1
@@ -156,7 +156,7 @@ $$
 \lambda_2  = \frac{f_0 + 1 - \sqrt{(f_0-1)^2} }{2} =1
 $$
 
-Since $f_0 \gt 1, \lambda_{max} = \phi = f_0x_0 + x_1 = f_0$
+Since $f_0 > 1, \lambda_{max} = \phi = f_0x_0 + x_1 = f_0$
 
 Besides, $x_0 + x_1 = 1$
 
