@@ -37,31 +37,32 @@ By law of total expectation, $E[X(t)] = E_{X(t-1)}[E_{X(t)}[X(t) \mid X(t-1)]] =
 V_1 
 &= Var[X(1) \mid X(0) = i] \\
 &= E[X(1)^2 \mid X(0) = i] - (E[X(1) \mid X(0) = i])^2 \\
-&= i^2 \cdot P_{i,i-1} + (i-1)^2 \cdot P_{i,i+1} + (i+1)^2 \cdot P_{i,i} - i^2 \\
-&= - \frac{i}{N}(1 - \frac{i}{N}) \cdot i^2 + ((i+1)^2 + (i-1)^2) \cdot \frac{i}{N}(1 - \frac{i}{N}) \\
+&= i^2 \cdot P_{i,i} + (i-1)^2 \cdot P_{i,i-1} + (i+1)^2 \cdot P_{i,i+1} - i^2 \\
+&= -2\cdot\frac{i}{N}(1 - \frac{i}{N}) \cdot i^2 + ((i+1)^2 + (i-1)^2) \cdot \frac{i}{N}(1 - \frac{i}{N}) \\
 &= 2\frac{i}{N}(1 - \frac{i}{N})
 \end{align*}
 
-$Var[X(1) \mid X(0) = i] = 2\frac{i}{N}(1 - \frac{i}{N}),\ \forall t > 0$.
+$Var[X(t) \mid X(t-1) = i] = Var[X(1) \mid X(0) = i] = 2\frac{i}{N}(1 - \frac{i}{N}),\ \forall t > 0$ follows from the fact the $X(t) \mid X(t-1)$ is identically distributed for all $t$
 
 By the law of total variance:
 \begin{align*}
 Var[X(t)]
 &= E_{X(t-1)}[Var_{X(t)}[X(t)\mid X(t-1)]] + Var_{X(t-1)}[E_{X(t)}[X(t)\mid X(t-1)]] \\
 &= E_{X(t-1)}[2\frac{X(t-1)}{N}(1 - \frac{X(t-1)}{N})] + Var[X(t-1)] \\
-&= 2\frac{E_{X(t-1)}}{N}(1 - \frac{E_{X(t-1)}}{N}) - \frac{2}{N^2}Var[X(t-1)] + Var[X(t-1)] \\
-&= 2\frac{E_{X(t-1)}}{N}(1 - \frac{E_{X(t-1)}}{N}) + (1-\frac{2}{N^2})Var[X(t-1)] \\
-&= 2V_1 + (1-\frac{2}{N})Var[X(t-1)] 
+&= 2\frac{E_{X(t-1)}[X(t-1)]}{N}(1 - \frac{E_{X(t-1)}[X(t-1)]}{N}) - \frac{2}{N^2}Var[X(t-1)] + Var[X(t-1)] 
+\quad E[A^2] = Var[A] + (E[A])^2\\
+&= 2\frac{E_{X(t-1)}[X(t-1)]}{N}(1 - \frac{E_{X(t-1)}[X(t-1)]}{N}) + (1-\frac{2}{N^2})Var[X(t-1)] \\
+&= V_1 + (1-\frac{2}{N})Var[X(t-1)] 
 \end{align*}
 
-if $X(0) = i$, we can rewrite the equation as 
+if $X(0) = i$, we can rewrite the equation as $N \to \infty$
 \begin{align*}
-Var[X(t)] - \frac{V_1}{\frac{2}{N^2}} 
-&= (1 - \frac{2}{N^2})(Var[X(t-1)] - \frac{V_1}{\frac{2}{N^2}}) \\
-&= (1 - \frac{2}{N^2})^{t-1}(V_1 - \frac{V_1}{\frac{2}{N^2}})
+\lim_{N\to \infty} Var[X(t)] 
+&= \lim_{N\to \infty} V_1 + (1-\frac{2}{N})Var[X(t-1)] \\
+&= V_1 + Var[X(t-1)]
 \end{align*}
 
-We have $Var[X(t)] = V_1\frac{1 - (1 - \frac{2}{N^2})^t}{\frac{2}{N^2}}$.
+By induction We have $Var[X(t)] = tV_1$.
 
 ### c)
 
@@ -74,8 +75,31 @@ Given the expression of variance in b), we can show
 
 ### d)
 
-```{r, message=FALSE, warning=FALSE, results=F}
+```{r eval=FALSE, include=FALSE}
+N <- 100
+v <- rep(90, 1000)
+length(v)
+stimulateMoran <- function(A, N, seed=1233) {
+  # p is array of 
+  for (i in 1:999){
+    p = A[i]/N
+    prob = c(p*(1-p), p*(1-p), p^2 +(1-p)^2)
+    ran = sample(c(-1,1,0), prob=c(0.1, 0.2, 0.7), size=1)
+    A[i+1] = A[i] + ran
+    if (A[i+1] >= N) {
+      A[i+1] = 100
+    }
+  }
+  
+  return(A)
+}
+A_pop <- stimulateMoran(v, N)
 ```
+
+![Simulation of a allele in Moran process (N=100)](1d-100.png)
+![Simulation of a allele in Moran process (N=10)](1d-10.png)
+
+The figure shows the frequency of a certain allele in a Moran process with population size $100$ and $10$, empirical mean, variance along with analytical ones were plotted in the graph.
 
 ## Problem 2
 
@@ -118,12 +142,9 @@ In the case of $i=1$, $x_1 = \frac{1-r^{-i}}{1-r^{-N}}$
 
 The limit can be calculated
 $$
-\lim_{r\to 1}\frac{1-r^{-1}}{1-r^{-N}} = \lim_{r\to 1}\frac{-\log(r)}{Nr^{-N-1}} = 0
+\lim_{r\to 1}\frac{1-r^{-1}}{1-r^{-N}} = \lim_{r\to 1}\frac{r^N - r^{N-1}}{r^N - 1}= \lim_{r\to 1}1 - \frac{r^{N-1} - 1}{r^N - 1} = 1 - \lim_{r\to 1}\frac{(N-1)r^{N-2}}{(N)r^{N-1}} = \frac{1}{N}
 $$
 
 
-
-
-
-
-
+Code is available on github repo:
+(https://github.com/wyq977/evolutionary-dynamics-2019)
