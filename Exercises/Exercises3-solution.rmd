@@ -52,26 +52,29 @@ Var[X(t)]
 &= 2\frac{E_{X(t-1)}[X(t-1)]}{N}(1 - \frac{E_{X(t-1)}[X(t-1)]}{N}) - \frac{2}{N^2}Var[X(t-1)] + Var[X(t-1)] 
 \quad E[A^2] = Var[A] + (E[A])^2\\
 &= 2\frac{E_{X(t-1)}[X(t-1)]}{N}(1 - \frac{E_{X(t-1)}[X(t-1)]}{N}) + (1-\frac{2}{N^2})Var[X(t-1)] \\
-&= V_1 + (1-\frac{2}{N})Var[X(t-1)] 
+&= V_1 + (1-\frac{2}{N^2})Var[X(t-1)] 
 \end{align*}
+
+if $X(0) = i$, we can rewrite the equation as 
+\begin{align*}
+Var[X(t)] - \frac{V_1}{\frac{2}{N^2}} 
+&= (1 - \frac{2}{N^2})(Var[X(t-1)] - \frac{V_1}{\frac{2}{N^2}}) \\
+&= (1 - \frac{2}{N^2})^{t-1}(V_1 - \frac{V_1}{\frac{2}{N^2}})
+\end{align*}
+
+We have $Var[X(t)] = V_1\frac{1 - (1 - \frac{2}{N^2})^t}{\frac{2}{N^2}}$.
+
+### c)
 
 if $X(0) = i$, we can rewrite the equation as $N \to \infty$
 \begin{align*}
 \lim_{N\to \infty} Var[X(t)] 
-&= \lim_{N\to \infty} V_1 + (1-\frac{2}{N})Var[X(t-1)] \\
+&= \lim_{N\to \infty} V_1 + (1-\frac{2}{N^2})Var[X(t-1)] \\
 &= V_1 + Var[X(t-1)]
 \end{align*}
 
 By induction We have $Var[X(t)] = tV_1$.
 
-### c)
-
-Given the expression of variance in b), we can show
-\begin{align*}
-\lim_{N\to \infty}Var[X(t)]
-&= \lim_{N\to \infty} 2\frac{i}{N}(1 - \frac{i}{N})\frac{1 - (1 - \frac{2}{N^2})^t}{\frac{2}{N^2}} \\
-&= (1 - \frac{2}{N^2})^{t-1}(V_1 - \frac{V_1}{\frac{2}{N^2}})
-\end{align*}
 
 ### d)
 
