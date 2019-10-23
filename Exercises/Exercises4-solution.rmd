@@ -34,7 +34,7 @@ For $X_i, i \in \{0,  1, 2\}$:
 \od{X_2}{t} &= N\cdot u_2 \cdot X_1
 \end{align*}
 
-For $X_i, i \in \{0,  1, 2\}$:
+For $Y_i, i \in \{0,  1, 2\}$:
 \begin{align*}
 \od{Y_0}{t} &= u_c \cdot X_0 - u_1 \cdot Y_0 \\
 \od{Y_1}{t} &= u_1 \cdot Y_0 + u_c \cdot X_1 - N\cdot u_3 \cdot Y_1 \\
@@ -56,7 +56,7 @@ Let $r$ be the relative fitness of CIN cells, the fixation probablity of a Moran
 From the lecture slides, we have:
 \begin{align*}
 X_2(t) &= \frac{Nu_1u_2t^2}{2} \\
-Y_2(t) &= Npu_1u_2t^2
+Y_2(t) &= Npu_1u_ct^2
 \end{align*}
 
 The ratio $C$ is calculated as $\frac{NY_2(t)}{NX_2(t)} = \frac{2pu_c}{u_2} = \frac{4p(2n_1+n_2)u}{2u} = 2p(2n_1+n_2)$
@@ -71,7 +71,9 @@ X_2(t) &= \frac{Nu_1u_2t^2}{2} \\
 Y_2(t) &= \frac{Ru_1t^2}{2}
 \end{align*}
 
-The ratio $C$ is calculated as $\frac{NY_2(t)}{NX_2(t)} = \frac{R}{Nu_2} = \frac{Nu_cu_3r}{(1-r)Nu_2} = \frac{(2n_1+n_2)}{100(1-r)}$
+The ratio $C$ is calculated as $\frac{NY_2(t)}{NX_2(t)} = \frac{R}{Nu_2} = \frac{Nu_cu_3r}{(1-r)Nu_2} = \frac{(2n_1+n_2)r}{100(1-r)}$
+
+Obviously, the ratio C for the three CIN scenarios is independent of time.
 
 ### b) 
 
@@ -89,7 +91,7 @@ Assuming there are $365.25$ days on average in a year
 
 ### a)
 
-Let $P(t)$ be the probablity of cells being neoplastic at time $t$
+Let $P(t)$ be the probablity of crypts being neoplastic at time $t$
 
 Time: $t= 365.25 \cdot 50 = 18262.5$, The probablity of fixation in a Moran process: $p = \frac{1-r^{-1}}{1-r^{-N}} = 0.048$
 
@@ -98,7 +100,7 @@ $E(\text{number of neoplastic crypts}) = M \cdot P(t) = 10^5$
 
 ### b)
 
-Let $P(t)$ be the probablity of cells being transformed at time $t$
+Let $P(t)$ be the probablity of crypts being transformed at time $t$
 
 Time: $t= 365.25 \cdot 50 \cdot \frac{1}{10}= 1826.25$,
 
@@ -107,24 +109,26 @@ $E(\text{number of neoplastic crypts}) = M \cdot P(t) = 183$
 
 ### c)
 
-Let $P(t)$ be the probablity of cells being transformed at time $t$
+Let $P(t)$ be the probablity of crypts being transformed at time $t$
 
 Time: $t= 365.25 \cdot 50 \cdot \frac{1}{10}= 1826.25$, $N=5$, $p = \frac{1-r^{-1}}{1-r^{-N}} = 0.22$
 
 $P(t) = 1 - \exp(-Nupt) = 2.01 \times 10^{-5}$
 $E(\text{number of neoplastic crypts}) = M \cdot P(t) = 201$
 
+When the cells in each crypt originate from a single stem cell, the expected number of neoplastic crypts at age 50 is minimum. Thus this kind of tissue architecture prevents best the initiation of cancer.
+
 ## Problem 3
 
 ### a)
 
-In Moran process, the average fixation time of the first mutation is $N$, and the average waiting time for the second mutation is $\frac{1}{Nu_2}$. When $N << \frac{1}{\sqrt{u_2}}$, it means $N << \frac{1}{u_2}$, so type 1 cells reach fixation before a type 2 cell arises.
+In Moran process, the average fixation time of the first mutation is $N$, and the average waiting time for the second mutation is $\frac{1}{Nu_2}$. When $N << \frac{1}{\sqrt{u_2}}$, it means $N << \frac{1}{Nu_2}$, so type 1 cells reach fixation before a type 2 cell arises.
 
 ### b)
 
 Given the initial condition, the equtions can be solved numerically using `ode45` in Matlab
 
-The figure below can be reproduced using 
+The figure above can be reproduced using 
 
 https://github.com/wyq977/evolutionary-dynamics-2019/Exercises/Ex4.m
 
