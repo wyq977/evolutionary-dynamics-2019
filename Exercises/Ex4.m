@@ -37,7 +37,7 @@ k1 = p(1);
 k2 = p(2);
 dxdt_b = zeros(3,1);
 dxdt_b(1) = -k1 * x(1); % X_1
-dxdt_b(2) = k1 * x(1) + N * k2 * x(2); % X_2
+dxdt_b(2) = k1 * x(1) - N * k2 * x(2); % X_2
 dxdt_b(3) = N * k2 * x(2);  % X_3
 end
 

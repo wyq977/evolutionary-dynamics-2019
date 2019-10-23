@@ -132,7 +132,7 @@ The figure above can be reproduced using
 
 https://github.com/wyq977/evolutionary-dynamics-2019/Exercises/Ex4.m
 
-$X_0 = 0.90484, X_2 = 0.16486, X_3 = 0.069696$
+$X_0 = 0.90484, X_2 = 0.059662, X_3 = 0.035501$
 
 ![N=100. t=1e6](numerical.png)
 
