@@ -95,8 +95,8 @@ Let $P(t)$ be the probablity of crypts being neoplastic at time $t$
 
 Time: $t= 365.25 \cdot 50 = 18262.5$, The probablity of fixation in a Moran process: $p = \frac{1-r^{-1}}{1-r^{-N}} = 0.048$
 
-$P(t) = 1 - \exp(-Nupt) = 0.01$
-$E(\text{number of neoplastic crypts}) = M \cdot P(t) = 10^5$
+$P(t) = 1 - \exp(-Nupt) = 0.00873$
+$E(\text{number of neoplastic crypts}) = M \cdot P(t) = 8.73 \times 10^4$
 
 ### b)
 
