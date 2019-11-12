@@ -1,0 +1,150 @@
+---
+title: "Exercises 7"
+author: "Yongqi WANG, Hangjia ZHAO"
+output:
+  pdf_document: default
+header-includes:
+ - \usepackage{amsmath}
+ - \usepackage{blkarray} # use blkarray in latex env
+ - \usepackage{bm} # use blkarray in latex env
+ # - \usepackage{derivative} # use blkarray in latex env
+---
+
+\newcommand{\od}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+
+## Problem 1
+
+### a)
+
+The derivative of x, y are zero at equilibrium/fixed point:
+
+\begin{align}
+0 &= x(a - by) \\
+0 &= y(-c + dx)
+\end{align}
+
+It's easy to see that: $(0, 0)$ and $(\frac{c}{d}, \frac{a}{b})$ are the fixed points.
+
+### b)
+
+The Jacobian of the RHS:
+
+\begin{align}
+J = 
+  \begin{bmatrix}
+  a - by & -bx \\
+  dy & -c + dx
+  \end{bmatrix}
+\end{align}
+
+For the non-trivial fixed points:
+
+\begin{align}
+J = 
+  \begin{bmatrix}
+  a - b\frac{a}{b} & -b\frac{c}{d} \\
+  d\frac{a}{b} & -c + d\frac{c}{d}
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  0 & \frac{-bc}{d} \\
+  \frac{ad}{b} & 0
+  \end{bmatrix} 
+\end{align}
+
+Eigenvalues can be calculated easily: $\lambda_1 = i\sqrt{ac}, \lambda_2 = -i\sqrt{ac}$. As shown by the eigenvalues which both have a zero real par. This indicates that the equiblirum is not attriactive and is not repulsive.S
+
+Due to the fact the the eigenvalues have a non-zero imaginary part, the system will now oscilate awith a peried of $\sqrt{ac}$
+
+### c)
+
+http://www.math.harvard.edu/library/sternberg/slides/11809LV.pdf
+
+For a replicator equation, with $x = (x_1, \dots, x_n)^T$
+
+\begin{align}
+\dot{x_i} = x_i\Big(f_i(x) - \sum_i^n x_i f_i(x)\Big) \\
+\dot{y_i} = y_i\Big(f_i(x) - \sum_i^n x_i f_i(x)\Big) \\
+\end{align}
+
+Let $$
+
+## Problem 2
+
+### a)
+
+A matrix is called a stochastics matrix if
+\begin{enumerate}
+  \item it is a square matrix
+  \item $0\leq A_{ij} \leq 1, \quad \forall\, i, j$
+  \item $\sum_j A_{ij} = 1, \quad \forall \, i,j$
+\end{enumerate}
+
+(1) and (2) is trivial since transition can be made from any state to another.
+
+By simple calculation, it is not hard to see that the row of matrix $M$ equals to 1.
+
+### b)
+
+To find the stationary distribution of the transition, let $x_t$ be the distribution after $t$ transition.
+
+If $x$ stated in the question were the stationary distribution, 
+
+\begin{align}
+\lim_{t\to\infty} x_t \cdot M = x
+\end{align}
+
+To verify (just the first component of $x_t$ for simplicity, denoted by $x_t^{1}$)
+Provided that $x_t = (s_1s_2, s_1(1-s_2), (1-s_1)s_2, (1-s_1)(1-s_2))$
+\begin{align}
+x_{t+1}^{1} &= x_t^1{} \cdot M \\
+&= s_1s_2 \cdot p_1p_2 + s_1(1-s_2) \cdot q_1p_2 + (1-s_1)s_2 \cdot p_1q_2 + (1-s_1)(1-s_2) \cdot q_1q_2 \\
+&= s_1s_2 \bigg(p_1p_2 - q_1p_2 +p_1q_2 + q_1q_2 \bigg) s_1q_1p_2 + s_2p_1q_2 - (s_1 + s_2)q_1q_2 + q_1q_2 \\
+&= s_1s_2r_1r_2 + s_1q_1r_2 + s_2q_2r_1 + q_1q_2 \\
+&= \Bigg{[} \Big( (q_2r_1+q_1)(q_1r_2+q_2)r_1r_2 \Big) + \Big( (q_2r_1+q_1)r_2q_1(1-r_1r_2) \Big) \\
+&  \quad + \Big( (q_1r_2 + q_2)r_1q_2 (1-r_1r_2) \Big) + \Big( (1-r_1r_2)^2q_1q_2\Big) \Bigg{]} \cdot \frac{1}{(1-r_1r_2)^2}  \\
+&= \Bigg{[} \Big(q_2^2r_1^2r_2^2 + q_2^2r_1^2r_2 + q_1q_2r_2^2r_1 + q_1q_2r_1r_2\Big) + \Big(q_1q_2r_1r_2 + q_1^2r_2 - q_1q_2r_1^2r_2^2\Big) \\
+&  \quad + \Big(q_1q_2r_1r_2 + q_2^2r_1 - q_1q_2r_1^2r_2^2 - q_2^2r_1^2r_2\Big) + \Big(q_1q_2 - 2q_1q_2r_1r_2 + q_1q_2r_1^2r_2^2\Big) \Bigg{]} \cdot \frac{1}{(1-r_1r_2)^2} \\
+&= \frac{q_1q_2r_1r_2 +q_1^2r_2 +q_1q_2+q_2^2r_1}{(1-r_1r_2)^2} \\
+&= s_1s_2
+\end{align}
+
+### c)
+
+It is easy to see this strategy is tit-for-tat. From the results from (b), we can show the expected payoffs for both players with the help of $s_1, s_2$
+
+In the setting of strategy $S_1(1, 0)$, 
+
+\begin{align}
+p_1 = 1 \\
+q_1 = 0
+\end{align}
+
+\begin{align}
+s_1 = \frac{q_2}{1 + q_2 - p_2} \\
+s_2 = \frac{q_2}{1 + q_2 - p_2}
+\end{align}
+
+The expected payoff at the stationary distribution of the correspounding Markov chain is the same for both players.
+
+### d)
+
+To calculate the expected payoff for $S_1$ against $S_2$, calculate $s_1$ and $s_2$,
+
+\begin{align}
+s_1 &= \frac{\frac{1}{4}(1-0) + 0}{1 - (1-0)(1-\frac{1}{4})} = 1\\
+s_2 &= \frac{0(1-\frac{1}{4}) + \frac{1}{4}}{1 - (1-0)(1-\frac{1}{4})} = 1
+\end{align}
+
+The expected paoff at the stationary distribution:
+
+$$
+E(S_1, S_2) = Rs_1s_2 + Ss_1(1-s_2) + T(1-s_1)s_2 + P(1-s_1)(1-s_2) = 3
+$$
+
+The expected payoff for this game with $S_1, S_2$ is $3$.
+
+Code is available on github repo:
+(https://github.com/wyq977/evolutionary-dynamics-2019)
