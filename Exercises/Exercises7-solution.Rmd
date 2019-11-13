@@ -60,13 +60,40 @@ Due to the fact that the eigenvalues have a non-zero imaginary part, the system 
 
 ### c)
 
-http://www.math.harvard.edu/library/sternberg/slides/11809LV.pdf
+When solving this question, we consulted [this lecture note](http://www.math.harvard.edu/library/sternberg/slides/11809LV.pdf) as well as some other books.
 
-For a replicator equation, with $x = (x_1, \dots, x_n)^T$
+Consider the replicator equation in $n$ variables:
+\begin{align}
+\dot{x_i} &= x_i \left(r_i + \sum_j a_{ij}x_j \right), \quad i = 1, \dots, n+1
+\end{align}
+
+This can be re-written into:
 
 \begin{align}
-\dot{x_i} = x_i\Big(f_i(x) - \sum_i^n x_i f_i(x)\Big) \\
-\dot{y_i} = y_i\Big(f_i(x) - \sum_i^n x_i f_i(x)\Big) \\
+\dot{x_i} &= x_i \left((\bm{Ax})_i - \bm{x}\cdot \bm{Ax}\right), \quad i = 1, \dots, n+1
+\end{align}
+
+We have $x_i$ denoting the density of $i$-th species and $r_i$ denoting the $i$-th species growth rate. Let $a_{ij}$ denote the interaction between $i$-th and $j$-th and the matrix $\bm{A}$ with entry $a_{ij}$ be the interaction matrix. With the last row of $\bm{A}$ being zeros.
+
+Define $y_{n+1} = 1$ and define a mapping from $\bm{y}$ to $\bm{x}$ given by:
+
+\begin{align}
+y_i = \dfrac{y_i}{\sum_{j=1}^n y_j}, \quad i = 1, \dots, n+1
+\end{align}
+
+The inverse mapping from $\bm{x}$ to $\bm{y}$ given by:
+
+\begin{align}
+x_i = \dfrac{x_i}{x_n}, \quad i = 1, \dots, n+1
+\end{align}
+
+Since $(\bm{Ax})_n = 0$ and the ODE systems on $x_i$ above. we have:
+
+\begin{align}
+\dot{y_i} &= \left(\dfrac{x_i}{x_n}\right)\cdot \left((\bm{Ax})_i - (\bm{Ax})_n\right) \\
+&= y_i \left(\sum a_{ij}x_j\right) \\
+&= y_i \left(\sum_{j=1}^{n+1} a_{ij}y_i\right) x_n \quad \text{Since } x_j = y_j\cdot x_n \\
+&= y_i (a_{in} + \sum_{j=1}^n a_{ij} y_j) \quad x_n \text{removed}
 \end{align}
 
 
