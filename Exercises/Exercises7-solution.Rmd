@@ -54,9 +54,9 @@ J =
   \end{bmatrix} 
 \end{align}
 
-Eigenvalues can be calculated easily: $\lambda_1 = i\sqrt{ac}, \lambda_2 = -i\sqrt{ac}$. As shown by the eigenvalues which both have a zero real par. This indicates that the equiblirum is not attriactive and is not repulsive.S
+Eigenvalues can be calculated easily: $\lambda_1 = i\sqrt{ac}, \lambda_2 = -i\sqrt{ac}$. As shown by the eigenvalues which both have a zero real part. This indicates that the equiblirum is not attriactive and is not repulsive.
 
-Due to the fact the the eigenvalues have a non-zero imaginary part, the system will now oscilate awith a peried of $\sqrt{ac}$
+Due to the fact that the eigenvalues have a non-zero imaginary part, the system will now oscillate awith a period of $\sqrt{ac}$
 
 ### c)
 
@@ -69,7 +69,6 @@ For a replicator equation, with $x = (x_1, \dots, x_n)^T$
 \dot{y_i} = y_i\Big(f_i(x) - \sum_i^n x_i f_i(x)\Big) \\
 \end{align}
 
-Let $$
 
 ## Problem 2
 
@@ -82,7 +81,7 @@ A matrix is called a stochastics matrix if
   \item $\sum_j A_{ij} = 1, \quad \forall \, i,j$
 \end{enumerate}
 
-(1) and (2) is trivial since transition can be made from any state to another.
+(1) and (2) is trivial since transition can be made from any state to another and hence the square matrix. As $p, q, 1-p, 1-p \in [0, 1]$, (2) is also fulfilled.
 
 By simple calculation, it is not hard to see that the row of matrix $M$ equals to 1.
 
@@ -127,7 +126,7 @@ s_1 = \frac{q_2}{1 + q_2 - p_2} \\
 s_2 = \frac{q_2}{1 + q_2 - p_2}
 \end{align}
 
-The expected payoff at the stationary distribution of the correspounding Markov chain is the same for both players.
+It is easy to see that $s_1 = s_2$ and hence the expected payoff at the stationary distribution of the correspounding Markov chain is the same for both players.
 
 ### d)
 
