@@ -5,9 +5,12 @@
 # get the neighbourhood of a site:
 nhood <- function(x, y, type = "von Neumann") {
   if(type != "Moore" && type != "von Neumann") stop("Neighbourhood type must be either Moore or von Neumann")
-  if(type == "Moore") return(list(c(x - 1, y), c(x + 1, y), c(x, y - 1), c(x, y + 1),
-                                                   c(x - 1, y - 1), c(x + 1, y + 1), c(x - 1, y + 1), c(x + 1, y - 1)))
-  else return(list(c(x - 1, y), c(x + 1, y), c(x, y - 1), c(x, y + 1)))
+  if(type == "Moore") res <- list(c(x - 1, y), c(x + 1, y), c(x, y - 1), 
+                                  c(x, y + 1),c(x - 1, y - 1), c(x + 1, y + 1), 
+                                  c(x - 1, y + 1), c(x + 1, y - 1)) 
+  else res <- list(c(x - 1, y), c(x + 1, y), c(x, y - 1), c(x, y + 1))
+  
+  return(res[sample(seq(length(res)), length(res), replace=F)])
 }
 
 # count the empty spaces in a neighbourhood:
@@ -71,7 +74,7 @@ output_df <- data.frame(Time = timer, Population = num_occupied)
 
 for(iter in 1:max_iter) {
   # pick a cell to divide:
-  candidate <- sample(1:num_has_space, 1, prob = unlist(how_many_spaces) * sapply(has_space, function(e) sites[e[1], e[2]]))
+  candidate <- sample(1:num_has_space, 1, prob = sapply(has_space, function(e) sites[e[1], e[2]]))
   # find the cell's neighbours:
   neighbours <- nhood(has_space[[candidate]][1], has_space[[candidate]][2], nhood_type)
   # randomise the order in which neighbours will be tested:
@@ -140,9 +143,8 @@ for(iter in 1:max_iter) {
 ################################### 
 ####### plot the results:
 ################################### 
-
+png("ex9_1_cell_based.png", width = 6, height = 6, units = 'in', res = 300)
 par(mfrow = c(2, 2))
-
 # plot the occupied sites,
 # after changing the value assigned to empty sites (for clearer plotting):
 num_types <- length(unique(as.numeric(sites))) # number of unique fitness values
@@ -161,5 +163,5 @@ image(space_grid, main = "Number of\nempty neighbours", col = c("black", heat.co
 # plot the growth curves of population and equivalent radius:
 plot(Population ~ Time, data = output_df, type = "l", main = "Population growth")
 plot(sqrt(Population / pi) ~ Time, data = output_df, type = "l", ylab = "Equivalent radius", main = "Equivalent\nradius growth")
-
+dev.off()
 
