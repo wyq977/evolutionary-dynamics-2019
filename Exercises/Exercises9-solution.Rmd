@@ -1,0 +1,28 @@
+---
+title: "Exercises 7"
+author: "Yongqi WANG, Hangjia ZHAO"
+output:
+  html_document: default
+  pdf_document: default
+header-includes:
+- \usepackage{amsmath}
+- \usepackage{blkarray}
+- \usepackage{bm}
+---
+
+\newcommand{\od}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+## Problem 1
+
+In the setting descriped in the script, only one type of occupied state ($S_1 = 1$) and no mutation was allowed during the process. Therefore, each site in the grid space of $1000 \times 1000$ would either be in $S_1$ occupied state or un-occupied. Following is the brief idea of the evolution process as per the script descrips.
+
+1. A candidate was randomly sampled from all the sites in the gridspace that have been occupied [code](https://github.com/robjohnnoble/EdenModel/blob/9c4524d1183cc1b0429f27dbdb98d5908dc1b587/EdenModelSim.R#L74).
+2. A unoccupied neibouring site ($S_0$) will switched to $S_1$.
+  Skip if the neibouring sites were occupied ([code](https://github.com/robjohnnoble/EdenModel/blob/9c4524d1183cc1b0429f27dbdb98d5908dc1b587/EdenModelSim.R#L84))
+3. Record the time for the proliferation event, which follows an exponetial distribution with the parameters $\lambda \propto \sum_{i,j} \text{neibours}_{i,j}$ ([code](https://github.com/robjohnnoble/EdenModel/blob/9c4524d1183cc1b0429f27dbdb98d5908dc1b587/EdenModelSim.R#L99))
+4. Update the sites that has been occupied, the corresponding index list and the list of neibours. ([code](https://github.com/robjohnnoble/EdenModel/blob/9c4524d1183cc1b0429f27dbdb98d5908dc1b587/EdenModelSim.R#L110))
+
+
+Code is available on github repo:
+(https://github.com/wyq977/evolutionary-dynamics-2019)
