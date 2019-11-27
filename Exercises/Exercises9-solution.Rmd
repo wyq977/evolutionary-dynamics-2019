@@ -75,17 +75,17 @@ qqplot(x=x, y=sort(unlist(bond_based)), xlab = 'Uniform Distribution', ylab='Bon
 For a wild type to die off, the probablity w.r.t. time is:
 
 \begin{align}
-p = \dfrac{N - n_i}{N} \mu
+p = （N - n_i) \mu
 \end{align}
 
 Probablity that a dead individual is replaced by parents of its own deme:
 \begin{align}
-W_i^{+(local)}(\bm{n}) = \dfrac{1+s}{N} n_i
+W_i^{+(local)}(\bm{n}) = (1-m) \dfrac{1+s}{N} n_i
 \end{align}
 
 Probablity that a dead individual is replaced by parents of other demes:
 \begin{align}
-W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - m \dfrac{(1+s)n_i}{N}
+W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} 
 \end{align}
 
 
