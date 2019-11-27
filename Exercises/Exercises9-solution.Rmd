@@ -85,7 +85,7 @@ W_i^{+(local)}(\bm{n}) = \dfrac{1+s}{N} n_i
 
 Probablity that a dead individual is replaced by parents of other demes:
 \begin{align}
-W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - \dfrac{m}{2} \dfrac{(1+s)n_i}{N}
+W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - m \dfrac{(1+s)n_i}{N}
 \end{align}
 
 
