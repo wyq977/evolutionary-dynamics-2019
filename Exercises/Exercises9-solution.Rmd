@@ -36,7 +36,7 @@ To make the proliferation rate __same__ across all cells of more than one $S_0$ 
 
 A modification was made during the sampling stage. As indicated by the Q-Q plot below, the sampling in bond foucussed approach clearly derivate from the uniform distribution much more than the cell foucussed one. It should be noted the below Q-Q plot is re-sampling after the simulation (both cell focus and bond focus). On the other hand, if the grid space was pre-occupied with $S_1$ uniformly, two approaches do not differ in the re-sampling result as expected.
 
-As shown in the simulation results below, the occupied grids in simulation of the cell focus one appears to be more uniform around the edge while the other possess rougher edge. This is probably due to the fact that the __bond-focussed__ method gives larges weight to unoccupied sites ($S_0$) surrounded by multiple occupied ones ($S_1$). Due to this bias in sampling, unoccupied sites around the corner in the grid space would have been `smoother` in the __cell-focussed__ one (as shown in Fig. 1). The effects of the sampling method can be clearly shown by the Q-Q plot below (Fig. 3)
+As shown in the simulation results below, the occupied grids in simulation of the cell focus one appears to be more uniform around the edge while the other possess rougher edge. This is due to the fact that the __bond-focussed__ method gives larges weight propotional to number of adjoining $S_0$ sites. Due to this bias in sampling, unoccupied sites around the corner in the grid space would have been `smoother` in the __cell-focussed__ one (as shown in Fig. 1). The effects of the sampling method can be clearly shown by the Q-Q plot below (Fig. 3)
 
 ```{r bond_sim, fig.cap="Simulation using bond focus method", fig.height=6, fig.width=6}
 source('ex9_1_EdenModelSim.R')
@@ -93,9 +93,9 @@ Thus,
 
 \begin{align}
 W_i^{+}(\bm{n})
-&= \dfrac{N - n_i}{N} \mu \Bigg(\dfrac{1+s}{N} n_i + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - \dfrac{m}{2} \dfrac{(1+s)n_i}{N} \Bigg) \\
-&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2}(n_{i+1} + n_{i-1} - n_{i}\Bigg) \\
-&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2}n_i''\Bigg)
+&= \dfrac{N - n_i}{N} \mu \Bigg(\dfrac{1+s}{N} n_i + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - m\dfrac{(1+s)n_i}{N} \Bigg) \\
+&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2}(n_{i+1} + n_{i-1} -2n_{i}\Bigg) \\
+&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2} n_i''\Bigg)
 \end{align}
 
 ### (b)
