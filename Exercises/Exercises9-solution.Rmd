@@ -159,7 +159,7 @@ u(x, t) = \sum_{n=1}^{\infty} B_n \sin{n\pi x}e^{-n^2\pi^2 t}, \quad, B_m = 2\in
 As shown in the figure below, the above diffusion equation failed to describe/approximate the spatial Moral model.
 
 ![](ex9_2d.png)
-Matlab code for generating the figure can be found [here](https://github.com/wyq977/evolutionary-dynamics-2019/Exercises/Ex9.m)
+Matlab code for generating the figure can be found [here](https://github.com/wyq977/evolutionary-dynamics-2019/blob/master/Exercises/Ex9.m)
 
 
 
