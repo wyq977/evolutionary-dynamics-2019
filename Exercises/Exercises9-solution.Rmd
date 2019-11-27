@@ -18,7 +18,9 @@ header-includes:
 
 ## Problem 1
 
-In the setting descriped in the script, only one type of occupied state ($S_1 = 1$) and no mutation was allowed during the process. Therefore, each site in the grid space of $1000 \times 1000$ would either be in $S_1$ occupied state or un-occupied. Following is the brief idea of the evolution process as per the script descrips.
+### (a)
+
+In the setting descriped in the script, only one type of occupied state ($S_1 = 1$) and no mutation was allowed during the process. Therefore, each site in the grid space would either be in $S_1$ occupied state or un-occupied. Following is the brief idea of the evolution process as per the script descrips.
 
 The models described here is __bond-focussed__, explained below.
 
@@ -30,9 +32,13 @@ The models described here is __bond-focussed__, explained below.
 
 To make the proliferation rate __same__ across all cells of more than one $S_0$ in their neibours, the update rule needs to switch to __cell-focussed__ method described in the slides.
 
-A modification was made during the sampling stage. As indicated by the Q-Q plot below, the sampling in bond foucussed approach clearly derivate from the uniform distribution much more than the cell foucussed one. It should be noted the below Q-Q plot is re-sampling after the simulation (both cell focus and bond focus) so it only represent the sampling difference at a snapshot. On the other hand, if the grid space was pre-occupied with $S_1$ uniformly, two approaches differs slightly.
+### (b)
 
-```{r, fig.cap="Sampling result using simulation Bond Focus"}
+A modification was made during the sampling stage. As indicated by the Q-Q plot below, the sampling in bond foucussed approach clearly derivate from the uniform distribution much more than the cell foucussed one. It should be noted the below Q-Q plot is re-sampling after the simulation (both cell focus and bond focus). On the other hand, if the grid space was pre-occupied with $S_1$ uniformly, two approaches do not differ in the re-sampling result as expected.
+
+As shown in the simulation results below, the occupied grids in simulation of the cell focus one appears to be more uniform around the edge while the other possess rougher edge. This is probably due to the fact that the __bond-focussed__ method gives larges weight to unoccupied sites ($S_0$) surrounded by multiple occupied ones ($S_1$). Due to this bias in sampling, unoccupied sites around the corner in the grid space would have been `smoother` in the __cell-focussed__ one (as shown in Fig. 1). The effects of the sampling method can be clearly shown by the Q-Q plot below (Fig. 3)
+
+```{r bond_sim, fig.cap="Simulation using bond focus method", fig.height=6, fig.width=6}
 source('ex9_1_EdenModelSim.R')
 ITER = 1000
 bond_based <- list()
@@ -42,42 +48,24 @@ for(iter in 1:ITER) {
   candidate <- sample(1:num_has_space, 1, prob = unlist(how_many_spaces) * 
                         sapply(has_space, function(e) sites[e[1], e[2]]))
   bond_based[[iter]] <- candidate
-
-  candidate <- sample(1:num_has_space, 1, prob = 
-                        sapply(has_space, function(e) sites[e[1], e[2]]))
-  cell_based[[iter]] <- candidate
 }
-x <- qunif(ppoints(ITER))
-par(mfrow = c(1, 2))
-qqplot(x=x, y=sort(unlist(cell_based)), xlab = 'Uniform Distribution', ylab='Cell Based')
-qqplot(x=x, y=sort(unlist(bond_based)), xlab = 'Uniform Distribution', ylab='Bond Based')
 ```
 
-```{r eval=T, include=T,echo=F, fig.cap="Sampling result using simulation Cell Focus"}
+```{r cell_sim, fig.cap="Simulation using cell focus method", fig.height=6, fig.width=6}
 source('ex9_1_EdenModelSimCellBased.R')
-ITER = 1000
-bond_based <- list()
-cell_based <- list()
 
 for(iter in 1:ITER) {
-  candidate <- sample(1:num_has_space, 1, prob = unlist(how_many_spaces) * 
-                        sapply(has_space, function(e) sites[e[1], e[2]]))
-  bond_based[[iter]] <- candidate
-
   candidate <- sample(1:num_has_space, 1, prob = 
                         sapply(has_space, function(e) sites[e[1], e[2]]))
   cell_based[[iter]] <- candidate
 }
+```
+
+```{r sampling, fig.cap="Sampling result using simulation", fig.height=3, fig.width=6}
 x <- qunif(ppoints(ITER))
 par(mfrow = c(1, 2))
 qqplot(x=x, y=sort(unlist(cell_based)), xlab = 'Uniform Distribution', ylab='Cell Based')
 qqplot(x=x, y=sort(unlist(bond_based)), xlab = 'Uniform Distribution', ylab='Bond Based')
-```
-
-
-```{r pressure, echo=FALSE, fig.cap="Simulation using different approaches", fig.width=3, fig.height=3}
-knitr::include_graphics("ex9_1_cell_based.png")
-knitr::include_graphics("ex9_1_bond_based.png")
 ```
 
 ## Problem 2
@@ -87,17 +75,27 @@ knitr::include_graphics("ex9_1_bond_based.png")
 For a wild type to die off, the probablity w.r.t. time is:
 
 \begin{align}
-p = \dfrac{1 - r^{-1}}{1 - r^{-N}}
+p = \dfrac{N - n_i}{N} \mu
 \end{align}
 
 Probablity that a dead individual is replaced by parents of its own deme:
 \begin{align}
-W_i^{+(local)}(\bm{n}) = (1 - m) \cdot \dfrac{\mu (1 + s) \cdot (N - n_i)}{N}
+W_i^{+(local)}(\bm{n}) = \dfrac{1+s}{N} n_i
 \end{align}
 
 Probablity that a dead individual is replaced by parents of other demes:
 \begin{align}
-W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (N - n_i)}{N}
+W_i^{+(neibours)}(\bm{n}) = \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - \dfrac{m}{2} \dfrac{(1+s)n_i}{N}
+\end{align}
+
+
+Thus,
+
+\begin{align}
+W_i^{+}(\bm{n})
+&= \dfrac{N - n_i}{N} \mu \Bigg(\dfrac{1+s}{N} n_i + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i+1})}{N} + \dfrac{m}{2} \cdot \dfrac{\mu (1 + s) \cdot (n_{i-1})}{N} - \dfrac{m}{2} \dfrac{(1+s)n_i}{N} \Bigg) \\
+&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2}(n_{i+1} + n_{i-1} - n_{i}\Bigg) \\
+&= \dfrac{\mu(1+s)(N-n_i)}{N}\Bigg(n_i + \frac{m}{2}n_i''\Bigg)
 \end{align}
 
 ### (b)
@@ -113,9 +111,10 @@ W_i^{+}(\bm{n}) - W_i^{-}(\bm{n})
 
 Therefore, $\od{\langle n_i \rangle}{t}$ can be written as:
 \begin{align}
-\od{\langle W_i^{+}(\bm{n}) - W_i^{-}(\bm{n}) \rangle}{t}
+\od{\langle n_i \rangle}{t}
+&= \langle W_i^{+}(\bm{n}) - W_i^{-}(\bm{n}) \rangle \\
 &= \langle\frac{\mu}{N}\Bigg[s(N-n_i)(n_i + \frac{m}{2}n_i'') + N\frac{m}{2}n_i'' \Bigg] \rangle \\
-&= \dfrac{\mu m }{2}\langle n_i'' \rangle + \frac{s\mu}{N}(N-\langle n_i \rangle)(\langle u_i \rangle + \frac{m}{2} \langle n_i'' \rangle)
+&= \dfrac{\mu m }{2}\langle n_i'' \rangle + \frac{s\mu}{N}(N-\langle n_i \rangle)(\langle n_i \rangle + \frac{m}{2} \langle n_i'' \rangle)
 \end{align}
 
 ### (c)
@@ -123,19 +122,44 @@ Therefore, $\od{\langle n_i \rangle}{t}$ can be written as:
 The differential equation above can be rewritten as:
 
 \begin{align}
-s(1- \frac{1}{N}\langle n_i \rangle)(\frac{1}{N}\langle u_i \rangle) +
+\mu s(1- \frac{1}{N}\langle n_i \rangle)(\frac{1}{N}\langle n_i \rangle) +
 \dfrac{\mu m }{2}\langle n_i'' \rangle +
-s(1- \frac{1}{N}\langle n_i \rangle)(\frac{m}{2} \langle n_i'' \rangle)
+\mu s(1- \frac{1}{N}\langle n_i \rangle)(\frac{m}{2} \langle n_i'' \rangle)
 \end{align}
 
-As $\langle n_i'' \rangle$ can be interpreted as $\Big\langle (n_{i+1} - n_i) - (n_i-n_{i-1}) \Big\rangle$, which is the epected difference in $l\pd{u}{x}$, $l^2\pdsec{u}{x}$ (since $x = l\cdot i$)
+As $\langle n_i'' \rangle$ can be interpreted as $\Big\langle (n_{i+1} - n_i) - (n_i-n_{i-1}) \Big\rangle$, which is the epected difference in $l\pd{u}{x}$, $l^2\pdsec{u}{x}$ (since $x = l\cdot i$ and change of variable)
 
 Therefore, the differential equation can be rewritten as:
 \begin{align}
 \pd{u}{t}
-&= \frac{\mu m}{2}l^2\pdsec{u}{x} + s\mu(1-u)(u - \frac{m}{2}l^2\pdsec{u}{x}) \\
+&= \frac{\mu m}{2}l^2\pdsec{u}{x} + s\mu(1-u)(u + \frac{m}{2}l^2\pdsec{u}{x}) \\
 &= \frac{\mu m}{2}(1 + s(1-u))l^2\pdsec{u}{x} + s\mu(1-u)u
 \end{align}
+
+### (d)
+
+When $s=0$, the equation (4) resembles the 1-D heat equation, which has the anlytic solution and can be solved numberically.
+
+PDE: $u_t = u_{xx}$, $0 < x < L$
+
+IC: $u(x,0) = f(x)$, $0 < x < L$
+In this case, it assigns a constant value $0$
+
+BC: $u(0,t)=u(1,t)=0$, $t>0$
+\begin{align}
+u\left(0,t\right)+\left(0\cdot f\right) &=0, \\
+\left(u\left(L,t\right)-1\right)+\left(0\cdot f\right) &=0\ldotp
+\end{align}
+
+Analytic solution:
+\begin{align}
+u(x, t) = \sum_{n=1}^{\infty} B_n \sin{n\pi x}e^{-n^2\pi^2 t}, \quad, B_m = 2\int_0^1 sin(m\pi x)f(x)dx
+\end{align}
+
+As shown in the figure below, the above diffusion equation failed to describe/approximate the spatial Moral model.
+
+![](ex9_2d.png)
+Matlab code for generating the figure can be found [here](https://github.com/wyq977/evolutionary-dynamics-2019/Exercises/Ex9.m)
 
 
 

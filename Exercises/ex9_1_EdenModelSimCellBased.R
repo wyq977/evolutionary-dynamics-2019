@@ -143,7 +143,6 @@ for(iter in 1:max_iter) {
 ################################### 
 ####### plot the results:
 ################################### 
-png("ex9_1_cell_based.png", width = 6, height = 6, units = 'in', res = 300)
 par(mfrow = c(2, 2))
 # plot the occupied sites,
 # after changing the value assigned to empty sites (for clearer plotting):
@@ -163,5 +162,4 @@ image(space_grid, main = "Number of\nempty neighbours", col = c("black", heat.co
 # plot the growth curves of population and equivalent radius:
 plot(Population ~ Time, data = output_df, type = "l", main = "Population growth")
 plot(sqrt(Population / pi) ~ Time, data = output_df, type = "l", ylab = "Equivalent radius", main = "Equivalent\nradius growth")
-dev.off()
 
